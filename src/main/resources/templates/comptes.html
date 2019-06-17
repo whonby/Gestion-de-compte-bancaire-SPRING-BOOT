@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{fragments/main_layout}" 
+  >
+<head>
+<meta charset="UTF-8" />
+<title>Gestion operation</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+ <div class="col-md-6" >
+ <div class="card border-primary mb-3" >
+  <div class="card-header"><h3>Consultation d'un compte</h3> </div>
+  <div class="card-body">
+    <form th:action="@{/consulterCompter}" method="GET">
+  <div class="form-group row">
+      <label for="code" class="col-sm-2 col-form-label">Compte</label>
+      <div class="col-sm-7">
+        <input type="text" class="form-control" name="codeCpte" id="code" value="">
+          <span class="text-danger" th:if="${exception}" th:text="${exception}"></span>
+      </div>
+      <div class="col-sm-3">
+      <button type="submit" class="btn btn-primary">Valider</button>
+      </div>
+    </div>
+  </form>
+  </div>
+</div>
+
+
+<div class="card border-primary mb-3" th:if="${compte}">
+  <div class="card-header"><h3>Information sur le compte</h3></div>
+  <div class="card-body">
+  <div class="form-group">
+   <label>Numero de compte:</label>
+    <label th:text="${compte.code}"></label>
+  </div>
+    <div class="form-group">
+   <label>Solde disponible:</label>
+    <label th:text="${compte.solde}"></label>
+  </div>
+   
+    <div class="form-group">
+   <label>Date de creation:</label>
+    <label th:text="${compte.dateCreate}"></label>
+  </div>
+   
+    <div class="form-group">
+   <label>Type de compte:</label>
+    <label th:text="${compte.class.simpleName}"></label>
+  </div>
+   
+  </div>
+</div>
+
+
+  
+</div>
+<div class="col-md-6" th:if="${compte}">
+<div class="card border-primary mb-3" >
+  <div class="card-header"><h3>Operation sur le compte</h3> </div>
+  <div class="card-body">
+   
+ 
+  </div>
+</div>
+
+
+<div class="card border-primary mb-3" >
+  <div class="card-header"><h3>Liste des operations</h3></div>
+  <div class="card-body">
+    <h4 class="card-title">Primary card title</h4>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+
+</div>
+</div>
+  </div>
+</body>
+</html>

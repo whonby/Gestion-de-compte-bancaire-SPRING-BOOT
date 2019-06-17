@@ -10,7 +10,7 @@ import com.whonby.banque.entity.Operation;
 
 public interface OperationRepository extends JpaRepository<Operation, String> {
     
-	@Query("select o from operation o where o.compte.code_cpte=:x order by o.operation desc")
+	@Query("select o from Operation o where o.compte.numCompte=:x order by o.dateCreation desc")
 	public Page<Operation> listeOperation(@Param("x")String codeCpte,Pageable pageable);
 	
 }

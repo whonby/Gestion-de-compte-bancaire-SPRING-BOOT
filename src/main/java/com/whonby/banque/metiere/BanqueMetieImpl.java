@@ -22,7 +22,7 @@ private CompteRepository compteRepository;
 private OperationRepository operationRepository;
 	@Override
 	public Compte consulterCompte(String codeCpte) {
-		Compte cp=compteRepository.getOne(codeCpte);
+		Compte cp=compteRepository.findById(codeCpte).orElse(null);
      if(cp==null) throw new RuntimeException("compte introuvable");	
 	 return cp;
 	}
