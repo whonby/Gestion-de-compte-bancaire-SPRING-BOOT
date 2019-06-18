@@ -18,8 +18,8 @@
   <div class="form-group row">
       <label for="code" class="col-sm-2 col-form-label">Compte</label>
       <div class="col-sm-7">
-        <input type="text" class="form-control" name="codeCpte" id="code" value="">
-          <span class="text-danger" th:if="${exception}" th:text="${exception}"></span>
+        <input type="text" class="form-control" name="codeCpte" id="code" th:value="${codeCompte}">
+          <span class="text-danger" th:if="${exception}" th:text="${exception.message}"></span>
       </div>
       <div class="col-sm-3">
       <button type="submit" class="btn btn-primary">Valider</button>
@@ -34,8 +34,12 @@
   <div class="card-header"><h3>Information sur le compte</h3></div>
   <div class="card-body">
   <div class="form-group">
+   <label>Client:</label>
+    <label th:text="${compte.client.nom}"></label>
+  </div>
+  <div class="form-group">
    <label>Numero de compte:</label>
-    <label th:text="${compte.code}"></label>
+    <label th:text="${compte.numCompte}"></label>
   </div>
     <div class="form-group">
    <label>Solde disponible:</label>
@@ -51,7 +55,17 @@
    <label>Type de compte:</label>
     <label th:text="${compte.class.simpleName}"></label>
   </div>
-   
+  
+  <div class="form-group" th:if="${compte.class.simpleName=='CompteCourante'}" >
+   <label>Découvert :</label>
+    <label th:text="${compte.decouvert}"></label>
+  </div>
+  
+   <div class="form-group" th:if="${compte.class.simpleName=='CompteEpagne'}" >
+   <label>taux :</label>
+    <label th:text="${compte.taux}"></label>
+  </div>
+  
   </div>
 </div>
 
@@ -71,8 +85,28 @@
 <div class="card border-primary mb-3" >
   <div class="card-header"><h3>Liste des operations</h3></div>
   <div class="card-body">
-    <h4 class="card-title">Primary card title</h4>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  
+   <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Compte</th>
+      <th scope="col">Type</th>
+      <th scope="col">Date</th>
+      <th scope="col">Montant</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="table-primary" th:each="o:${listeOperation}">
+      <td th:text="${o.numero}"></td>
+		<td th:text="${o.class.simpleName}"></td>
+	   <td th:text="${o.dateCreation}"></td>
+	  <td th:text="${o.montant}"></td>
+    </tr>
+  </tbody>
+</table>
+  
+   
+  
   </div>
 </div>
 

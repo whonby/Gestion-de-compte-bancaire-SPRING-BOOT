@@ -2,6 +2,7 @@ package com.whonby.banque.metiere;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -15,15 +16,25 @@ import com.whonby.banque.entity.Operation;
 import com.whonby.banque.entity.Retrait;
 import com.whonby.banque.entity.Versement;
 
+
+import org.apache.commons.logging. Log;
+import org.apache.commons.logging. LogFactory;
 @Service
 @Transactional
 public class BanqueMetieImpl implements IBanque{
+	static Log log = LogFactory.getLog(BanqueMetieImpl.class.getName());
+	
+@Autowired
 private CompteRepository compteRepository;
+@Autowired
 private OperationRepository operationRepository;
 	@Override
 	public Compte consulterCompte(String codeCpte) {
-		Compte cp=compteRepository.findById(codeCpte).orElse(null);
-     if(cp==null) throw new RuntimeException("compte introuvable");	
+		 
+		Compte cp=compteRepository.findById(codeCpte).orElseThrow();
+		log.info(codeCpte);
+		if(cp==null) throw new RuntimeException("compte introuvable");	
+    
 	 return cp;
 	}
 	
