@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.whonby.banque.entity.Compte;
@@ -40,10 +41,42 @@ public class BanqueController {
 			model.addAttribute("pageCourante", p);
 			
 		} catch (Exception e) {
-			model.addAttribute("exception",e);
+			String message=e.getMessage();
+			if (message.equals("No value present")) {
+				message="Compte introuvable";
+			}
+			model.addAttribute("exception",message);
 			
 		}
 		
 		return "comptes";
+	}
+	
+	@PostMapping(value = "/saveOperation")
+	public String saveOperation(Model model,String typeOperation,String codeCpte2,double montant,String codeCpte) {
+		
+		
+		try {
+			if (typeOperation.equals("VERS")) {
+				banqueMetieImpl.verser(codeCpte, montant);
+			}
+			if (typeOperation.equals("RETR")) {
+				banqueMetieImpl.retirer(codeCpte, montant);
+			}
+			
+			if (typeOperation.equals("VIR")) {
+				banqueMetieImpl.virement(codeCpte, codeCpte2, montant);
+			}
+		} catch (Exception e) {
+			String message=e.getMessage();
+			if (message.equals("No value present")) {
+				message="imposible de faire le virement car, le compte "+codeCpte2+" n'existe pas dans notre basse de donne ";
+			}
+			model.addAttribute("error",message);
+			return "redirect:/consulterCompter?codeCpte="+codeCpte+"&error="+message;
+		}
+		
+		return "redirect:/consulterCompter?codeCpte="+codeCpte;
+		
 	}
 }

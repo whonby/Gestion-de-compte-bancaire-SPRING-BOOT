@@ -32,8 +32,9 @@ private OperationRepository operationRepository;
 	public Compte consulterCompte(String codeCpte) {
 		 
 		Compte cp=compteRepository.findById(codeCpte).orElseThrow();
-		log.info(codeCpte);
-		if(cp==null) throw new RuntimeException("compte introuvable");	
+		//log.info(codeCpte);
+		if(cp==null)
+			throw new RuntimeException("compte introuvable");	
     
 	 return cp;
 	}
@@ -57,7 +58,7 @@ private OperationRepository operationRepository;
 		if(cp instanceof CompteCourant)
 			faciliteCaise=((CompteCourant) cp).getDecouvert();
 		if(cp.getSolde()+faciliteCaise<montant)
-			throw new RuntimeException("Votre sold est insuffisant");	
+			throw new RuntimeException("Votre sold est insuffisant");
 		Retrait v=new Retrait(new Date(), montant, cp);
 		operationRepository.save(v);
 		cp.setSolde(cp.getSolde()-montant);
@@ -68,6 +69,13 @@ private OperationRepository operationRepository;
 
 	@Override
 	public void virement(String codeCpte1, String codeCpte2, double montant) {
+		if (codeCpte1.equals(codeCpte2)) 
+			throw new RuntimeException("Virement impossible");
+		
+		Compte cp=consulterCompte(codeCpte2);	
+		if (cp==null)
+		  new RuntimeException("Le compte "+codeCpte2+" n'est pas disponible");
+		
 		retirer(codeCpte1, montant);
 		verser(codeCpte2, montant);
 		
