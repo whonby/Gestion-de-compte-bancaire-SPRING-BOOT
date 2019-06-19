@@ -11,6 +11,7 @@
 	<groupId>com.whonby</groupId>
 	<artifactId>Banque</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>Banque</name>
 	<description>projet de gestion des compte baquais</description>
 
