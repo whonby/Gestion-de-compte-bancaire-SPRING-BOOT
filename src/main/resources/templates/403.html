@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{fragments/main_layout}" 
+  >
+<head>
+<meta charset="UTF-8" />
+<title>Error 403</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+<div class="container">
+        <div class="row">
+               <div class="col-md-2 text-center">
+                    <p> <i class="text-warning fa fa-exclamation-triangle fa-5x"></i><br/>Status Code: 403</p>
+               </div>
+               <div class="col-md-10">
+                    <h3>OPPSSS!!!! Désolé</h3>
+                    <p>Désolé, votre accès est refusé pour des raisons de sécurité de notre serveur et de nos données sensibles.
+                     <br/> Veuillez revenir à la page précédente pour continuer à naviguer.</p>
+                    <a class="btn btn-danger" href="/operations">Operation</a>
+               </div>
+          </div>
+  
+</div>
+
+
+  </div>
+</body>
+;
+</script>
+</html>

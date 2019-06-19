@@ -15,16 +15,16 @@
               <a class="nav-link" href="/operations">Operation</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/operations">Compte</a>
+              <a class="nav-link" href="/operations" sec:authorize="hasRole('ROLE_ADMIN')">Compte</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/operations">Client</a>
+              <a class="nav-link" href="/operations" sec:authorize="hasRole('ROLE_ADMIN')">Client</a>
             </li>
           </ul>
 
           <ul class="nav navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="https://wrapbootstrap.com/?ref=bsw" target="_blank">WrapBootstrap</a>
+              <a class="nav-link" th:href="@{/login?logout}" >Déconnection</a>
             </li>
           </ul>
 
